@@ -6,6 +6,9 @@ using StaticArrays
 Return empty space function based on Kaplan-Meier estimator.
 """
 function Fkmnn(xy, window, r, N)
+    if length(xy) == 0
+        return zeros(length(r))
+    end
     xy = getxy.(xy)
     (x1,x2), (y1, y2) = window.x, window.y
     tree = KDTree(SVector.(xy))
