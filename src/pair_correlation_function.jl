@@ -11,6 +11,9 @@ The kernel estimator only uses the r values provided plus padding.
 Stoyan & Stoyan, 1994, p 284
 """
 function pcf(xy, window, r, bandwidth=nothing)
+    if length(xy) == 0
+        return fill(0.0/0.0, length(r))
+    end
     xy = getxy.(xy)
     λ = length(xy)/area(window)
     a = if bandwidth == nothing
