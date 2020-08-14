@@ -25,7 +25,8 @@ end
     erlenvelope(A, alpha=0.05)
 
 Return envelope with global significance level alpha based on
-Extreme Rank Length.
+Extreme Rank Length and an interval for alpha. The interval measures
+the effect tie breaking
 
 """
 function erlenvelope(A, alpha=0.05)
@@ -44,11 +45,13 @@ function erlenvelope(A, alpha=0.05)
     Aerl = sort!(reshape(Ar, :, N), dims=1)
     n = round(Int, alpha*length(A))
     inds = partialsortperm(collect(eachcol(Aerl)), n+1:N)
+    Ralpha = Aerl[1, inds[1]]
+    alpha_interval = (count(x -> x < Ralpha, Aerl[1,:]), count(x -> x <= Ralpha, Aerl[1,:])) ./ N
 
     hi = similar(A[1])
     lo = similar(hi)
     for i in eachindex(CartesianIndices(hi))
         lo[i], hi[i] = extrema(view(A1, i, inds))
     end
-    lo, hi
+    lo, hi, alpha_interval
 end
