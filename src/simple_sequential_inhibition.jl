@@ -350,7 +350,7 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
     total = 0
     acc = 0
 
-    isempty(notcovered) && return (;status=:jamm, cellsize, t, total)
+    isempty(notcovered) && return (status=:jamm, cellsize=cellsize, time=t, totalproposals=total)
     while t <= T
         t += dt
         proposals += 1
@@ -363,7 +363,7 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
             cellsize = rebuild_notcovered!(notcovered, closepoints, pp, (maxx, maxy), R, cellsize, tmp)
             dt = R^2 /(length(notcovered) * cellsize^2)
             if isempty(notcovered)
-                return (;status=:jamm, cellsize, t, total)
+                return (status=:jamm, cellsize=cellsize, time=t, totalproposals=total)
             end
             proposals = 0
             acc = 0
@@ -377,7 +377,7 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
             push!(pp, p1)
         end
     end
-    (;status=:ok, cellsize, t, total)
+    (status=:ok, cellsize=cellsize, time=t, totalproposals=total)
 end
 
 function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info=(info, p) -> nothing)
