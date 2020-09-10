@@ -380,7 +380,7 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
     (status=:ok, cellsize=cellsize, time=t, totalproposals=total)
 end
 
-function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info=(info, p) -> nothing)
+function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info=(info, p, d) -> nothing)
     w = d.maxx-d.minx
     h = d.maxy-d.miny
     status = :ok
@@ -400,6 +400,6 @@ function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info
         x,y = p[i]
         p[i] = (x+d.minx, y+d.miny)
     end
-    info(status, p)
+    info(status, p, d)
     p
 end
