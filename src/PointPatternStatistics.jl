@@ -18,11 +18,14 @@ include("Fnn.jl")
 #include("F.jl")
 include("G.jl")
 include("envelope_erl.jl")
+
+include("simple_sequential_inhibition.jl")
 Fest(x, w, r, N=100) = Fkmnn(x, w, r, N)
 Gest = Gkm
 Kest = Ktrans
 globalenvelope = erlenvelope
 export Kest, pcf, Fest, Gest, globalenvelope, Lest, L12
+export SimpleSequentialInhibition
 export inside
 
 end # module

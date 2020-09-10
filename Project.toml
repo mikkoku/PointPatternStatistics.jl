@@ -11,7 +11,8 @@ OffsetArrays = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [extras]
+Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test"]
+test = ["Test", "Distances"]
