@@ -356,7 +356,7 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
         proposals += 1
         total += 1
         if total > 1_000_000
-            println(("Something is wrong", length(pp), length(notcovered), (;cellsize, t, dt)))
+            println(("Something is wrong", length(pp), length(notcovered), (cellsize, t, dt)))
             throw("asdf")
         end
         if 3acc >= length(notcovered) || proposals >= 10*length(notcovered)
