@@ -23,5 +23,6 @@ Gest = Gkm
 Kest = Ktrans
 globalenvelope = erlenvelope
 export Kest, pcf, Fest, Gest, globalenvelope, Lest, L12
+export inside
 
 end # module

@@ -17,3 +17,13 @@ function bdist(window, (x,y))
     (x1,x2), (y1, y2) = window.x, window.y
     min(x-x1, y-y1, x2-x, y2-y)
 end
+
+""" inside(point, window)
+"""
+function inside(point, window)
+    x1, x2 = window.x
+    y1, y2 = window.y
+    x, y = point
+    x1 <= x <= x2 && y1 <= y <= y2
+end
+inside(window) = Base.Fix2(inside, window)
