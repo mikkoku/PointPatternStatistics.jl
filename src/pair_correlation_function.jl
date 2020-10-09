@@ -1,7 +1,7 @@
 using OffsetArrays
 using FFTW
 
-bwstoyan(xy, window) = 0.15 / sqrt(length(xy)/area(window))
+bwstoyan(pp) = 0.15 / sqrt(npoints(pp)/area(window(pp)))
 """
     pcf(xy, window, r, bandwidth=bwstoyan)
 
@@ -13,12 +13,14 @@ Bandwidth can be specified as a function of xy and window or as a number.
 
 Stoyan & Stoyan, 1994, p 284
 """
-pcf(xy, window, r, bandwidth=bwstoyan) = pcf(xy, window, r, bandwidth(xy, window))
-function pcf(xy, window, r, bandwidth::Number)
+pcf(pp, r, bandwidth=bwstoyan) = pcf(pp, r, bandwidth(pp))
+function pcf(pp, r, bandwidth::Number)
+    xy = pp.data
+    window = pp.window
     if length(xy) == 0
         return fill(0.0/0.0, length(r))
     end
-    xy = getxy.(xy)
+    #xy = getxy.(xy)
     λ = length(xy)/area(window)
     a = bandwidth
 

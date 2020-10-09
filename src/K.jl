@@ -5,10 +5,9 @@
 
 Return K-function estimate with translation edge correction.
 """
-function Ktrans(xy, window, r)
-  xy = getxy.(xy)
-  n = length(xy)
-  cumsum(disthisttrans(xy, step(r), length(r), window)) / (n*(n-1)/area(window))
+function Ktrans(pp, r)
+  n = npoints(pp)
+  cumsum(disthisttrans(pp.data, step(r), length(r), window(pp))) / (n*(n-1)/area(window(pp)))
 end
 
 """
@@ -18,18 +17,18 @@ Return mark-weighted K-function with translation edge correction.
 
 This is not properly normalised.
 """
-function Kmark(xy, window, r, f)
-  xy = getxy.(xy)
-  n = length(xy)
-  cumsum(disthisttransf(xy, f, step(r), length(r), window)) / (n*(n-1)/area(window))
+function Kmark(pp, r, f)
+  n = npoints(pp)
+  cumsum(disthisttransf(pp.data, f, step(r), length(r), window(pp))) / (n*(n-1)/area(window(pp)))
 end
 
-function K12(x, y, window, r)
-  n1 = length(x)
-  n2 = length(y)
-  cumsum(disthisttrans12(getxy.(x), getxy.(y), step(r), length(r), window)) / (n1*n2/area(window))
+function K12(x, y, r)
+  @assert window(x) == window(y)
+  n1 = npoints(x)
+  n2 = npoints(y)
+  cumsum(disthisttrans12(x.data, y.data, step(r), length(r), window(x))) / (n1*n2/area(window(x)))
 end
-function L12(x, y, window, r)
-  sqrt.(K12(x, y, window, r) ./ pi)
+function L12(x, y, r)
+  sqrt.(K12(x, y, r) ./ pi)
 end
-Lest(xy, window, r) = sqrt.(Kest(xy, window, r) ./ pi)
+Lest(pp, r) = sqrt.(Kest(pp, r) ./ pi)

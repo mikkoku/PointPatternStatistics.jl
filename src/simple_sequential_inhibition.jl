@@ -381,11 +381,12 @@ function randSSIfill3!(pp, (maxx, maxy), R, T)
 end
 
 function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info=(info, p, d) -> nothing)
+    window = (x=(d.minx, d.maxx), y=(d.miny, d.maxy))
     w = d.maxx-d.minx
     h = d.maxy-d.miny
     status = :ok
     if alg == :simple
-        return randSSIsimple((x=(d.minx, d.maxx), y=(d.miny, d.maxy)), d.R, T)
+        return randSSIsimple(window, d.R, T)
     elseif alg == :gridsearch
         p = randSSI((w, h), d.R, T)
     elseif alg == :gridrand
@@ -401,5 +402,5 @@ function Base.rand(d::SimpleSequentialInhibition; T=10.0^20, alg=:gridrand, info
         p[i] = (x+d.minx, y+d.miny)
     end
     info(status, p, d)
-    p
+    PointPattern(p, window)
 end

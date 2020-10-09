@@ -2,9 +2,20 @@ module PointPatternStatistics
 using LinearAlgebra: norm
 using StaticArrays
 
-getxy(x::Tuple{<:Number, <:Number}) = x
-getxy(x::SVector{2, <:Number}) = x
-getxy(x::NamedTuple) = (x.x, x.y)
+
+struct PointPattern{PT, WT}
+    data::Vector{PT}
+    window::WT
+end
+npoints(pp) = length(pp.data)
+window(pp) = pp.window
+
+getx(x::NamedTuple) = x.x
+gety(y::NamedTuple) = x.y
+getx(x::Tuple) = x[1]
+gety(x::Tuple) = x[2]
+getx(x::SVector) = x[1]
+gety(x::SVector) = x[2]
 
 include("window.jl")
 include("weighted_distance_histogram.jl")
@@ -20,10 +31,11 @@ include("G.jl")
 include("envelope_erl.jl")
 
 include("simple_sequential_inhibition.jl")
-Fest(x, w, r, N=100) = Fkmnn(x, w, r, N)
+Fest(pp, r, N=100) = Fkmnn(pp.data, window(pp), r, N)
 Gest = Gkm
 Kest = Ktrans
 globalenvelope = erlenvelope
+export PointPattern
 export Kest, pcf, Fest, Gest, globalenvelope, Lest, L12
 export SimpleSequentialInhibition
 export inside

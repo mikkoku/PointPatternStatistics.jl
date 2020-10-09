@@ -53,5 +53,5 @@ ref = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     1.0, 1.0, 1.0, 1.0, 1.0]
 
 r = 0:0.001:0.25
-est = Gest(xy, window, r)
+est = Gest(PointPattern(xy, window), r)
 @test est ≈ ref

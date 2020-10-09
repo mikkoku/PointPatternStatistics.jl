@@ -9,9 +9,9 @@ function Fkmnn(xy, window, r, N)
     if length(xy) == 0
         return zeros(length(r))
     end
-    xy = getxy.(xy)
+    xy = @. SVector(getx(xy), gety(xy))
     (x1,x2), (y1, y2) = window.x, window.y
-    tree = KDTree(SVector.(xy))
+    tree = KDTree(xy)
     sx = (x2-x1)/N
     Ny = round(Int, N*(y2-y1)/(x2-x1))
     sy = (y2-y1)/Ny
