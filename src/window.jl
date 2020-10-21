@@ -20,13 +20,20 @@ function bdist(window::NamedTuple{(:x,:y)}, xy)
 end
 
 """ inside(point, window)
+
+Is point inside or on the boundary of window.
 """
-function inside(point, window::NamedTuple{(:x,:y)})
+function inside(T::Type{<:Union{Bool, Int}}, point, window::NamedTuple{(:x,:y)})
     x1, x2 = window.x
     y1, y2 = window.y
     x, y = getx(point), gety(point)
-    x1 < x < x2 && y1 < y < y2 && return 1
-    x1 <= x <= x2 && y1 <= y <= y2 && return 0
-    -1
+    if T==Bool
+        x1 <= x <= x2 && y1 <= y <= y2
+    else
+        x1 < x < x2 && y1 < y < y2 && return 1
+        x1 <= x <= x2 && y1 <= y <= y2 && return 0
+        -1
+    end
 end
+inside(point, window) = inside(Bool, point, window)
 inside(window) = Base.Fix2(inside, window)
