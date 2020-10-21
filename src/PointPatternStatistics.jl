@@ -1,6 +1,7 @@
 module PointPatternStatistics
 using LinearAlgebra: norm
 using StaticArrays
+using RecipesBase
 using Requires
 
 
@@ -31,6 +32,8 @@ include("G.jl")
 include("envelope_erl.jl")
 
 include("simple_sequential_inhibition.jl")
+
+include("plotrecipes.jl")
 Fest(pp, r, N=100) = Fkmnn(pp.data, window(pp), r, N)
 Gest = Gkm
 Kest = Ktrans
