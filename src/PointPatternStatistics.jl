@@ -13,11 +13,9 @@ npoints(pp) = length(pp.data)
 window(pp) = pp.window
 
 getx(x::NamedTuple) = x.x
-gety(y::NamedTuple) = x.y
-getx(x::Tuple) = x[1]
-gety(x::Tuple) = x[2]
-getx(x::SVector) = x[1]
-gety(x::SVector) = x[2]
+gety(x::NamedTuple) = x.y
+getx(x) = x[1]
+gety(x) = x[2]
 
 include("window.jl")
 include("weighted_distance_histogram.jl")
