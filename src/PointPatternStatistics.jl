@@ -8,6 +8,7 @@ struct PointPattern{PT, WT}
     data::Vector{PT}
     window::WT
 end
+Base.length(pp::PointPattern) = npoints(pp)
 npoints(pp) = length(pp.data)
 window(pp) = pp.window
 
