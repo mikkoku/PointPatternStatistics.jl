@@ -41,7 +41,7 @@ globalenvelope = erlenvelope
 export PointPattern
 export Kest, pcf, Fest, Gest, globalenvelope, Lest, L12
 export SimpleSequentialInhibition
-export inside
+export inside, window
 
 function __init__()
     @require RCall="6f49c342-dc21-5d91-9882-a32aef131414" include("convertR.jl")
