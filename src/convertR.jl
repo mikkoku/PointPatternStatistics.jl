@@ -29,3 +29,17 @@ function sexp(::Type{RClass{:ppp}}, pp::PointPattern)
 end
 
 sexpclass(f::PointPattern) = RClass{:ppp}
+
+
+
+function rcopy(::Type{NamedTuple{(:x, :y), Tuple{Float64, Float64}}}, s::Ptr{VecSxp})
+    if !rcopy(R"spatstat::is.rectangle"(s))
+        @warn "Non-rectangle windows not supported. Using the bounding box as the window."
+    end
+
+    window = rcopy(Dict{Symbol, Any}, s)
+
+    (x=window[:xrange], y=window[:yrange])
+end
+
+rcopytype(::Type{RClass{:owin}}, ::Ptr{VecSxp}) = NamedTuple{(:x, :y), Tuple{Float64, Float64}}
