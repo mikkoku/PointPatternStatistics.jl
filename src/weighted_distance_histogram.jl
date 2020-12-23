@@ -7,6 +7,9 @@ disthisttrans12(xy1, xy2, step, N, window, pcf=false) =
     disthisttrans12f(xy1, xy2, (_,_) -> 1.0, step, N, window, pcf)
 function disthisttrans12f(xy1, xy2, f, step, N, window, pcf=false)
     hist = zeros(N)
+    if length(xy1) == 0 || length(xy2) == 0
+        return hist
+    end
     Rmax = (N-1)*step
     T = promote_type(typeof(getx(xy1[1])), typeof(step))
     R2max = T(Rmax^2)
