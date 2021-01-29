@@ -13,6 +13,10 @@ Base.length(pp::PointPattern) = npoints(pp)
 npoints(pp) = length(pp.data)
 window(pp) = pp.window
 
+Base.iterate(pp::PointPattern) = iterate(pp.data)
+Base.iterate(pp::PointPattern, state) = iterate(pp.data, state)
+Base.eltype(pp::PointPattern) = eltype(pp.data)
+
 getx(x::NamedTuple) = x.x
 gety(x::NamedTuple) = x.y
 getx(x) = x[1]
