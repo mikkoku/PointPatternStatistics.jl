@@ -23,8 +23,8 @@ function sexp(::Type{RClass{:ppp}}, pp::PointPattern)
     #     :window => win)))
     # setclass!(r, sexp("ppp"))
     # unprotect(2)
-    r = R"spatstat::ppp"(getx.(pp.data), gety.(pp.data),
-        window=R"spatstat::owin"([pp.window.x...], [pp.window.y...]))
+    r = R"spatstat.core::ppp"(getx.(pp.data), gety.(pp.data),
+        window=R"spatstat.geom::owin"([pp.window.x...], [pp.window.y...]))
     r
 end
 
@@ -33,7 +33,7 @@ sexpclass(f::PointPattern) = RClass{:ppp}
 
 
 function rcopy(::Type{NamedTuple{(:x, :y), Tuple{Float64, Float64}}}, s::Ptr{VecSxp})
-    if !rcopy(R"spatstat::is.rectangle"(s))
+    if !rcopy(R"spatstat.geom::is.rectangle"(s))
         @warn "Non-rectangle windows not supported. Using the bounding box as the window."
     end
 
