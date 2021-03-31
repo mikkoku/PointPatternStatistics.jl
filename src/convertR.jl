@@ -23,7 +23,7 @@ function sexp(::Type{RClass{:ppp}}, pp::PointPattern)
     #     :window => win)))
     # setclass!(r, sexp("ppp"))
     # unprotect(2)
-    r = R"spatstat.core::ppp"(getx.(pp.data), gety.(pp.data),
+    r = R"spatstat.geom::ppp"(getx.(pp.data), gety.(pp.data),
         window=R"spatstat.geom::owin"([pp.window.x...], [pp.window.y...]))
     r
 end
