@@ -39,9 +39,9 @@ include("simple_sequential_inhibition.jl")
 
 include("plotrecipes.jl")
 Fest(pp, r, N=100) = Fkmnn(pp.data, window(pp), r, N)
-Gest = Gkm
-Kest = Ktrans
-globalenvelope = erlenvelope
+const Gest = Gkm
+const Kest = Ktrans
+const globalenvelope = erlenvelope
 export PointPattern
 export Kest, pcf, Fest, Gest, globalenvelope, Lest, L12
 export SimpleSequentialInhibition

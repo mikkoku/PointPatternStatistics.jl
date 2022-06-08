@@ -23,7 +23,7 @@ function Kmark(pp, r, f)
 end
 
 function K12(x, y, r)
-  @assert window(x) == window(y)
+  window(x) == window(y) || throw(ArgumentError("Both point patterns must be on the same window"))
   n1 = npoints(x)
   n2 = npoints(y)
   cumsum(disthisttrans12(x.data, y.data, step(r), length(r), window(x))) / (n1*n2/area(window(x)))
